@@ -1,7 +1,6 @@
-// utils/api.ts
 import { getAuthToken } from "./auth"
 
-const API_BASE_URL = "http://localhost:3004/api" // ou use variável de ambiente com dotenv no mobile
+const API_BASE_URL = "http://localhost:3004/api" // ou usar .env se quiser
 
 interface ApiOptions {
   method?: string
@@ -18,7 +17,7 @@ export async function fetchApi<T>(endpoint: string, options: ApiOptions = {}): P
   }
 
   if (token) {
-    headers["Authorization"] = `Bearer ${token}`
+    headers["Authorization"] = `Bearer jdhfjasjhsakjhdjsa`
   }
 
   const response = await fetch(`${API_BASE_URL}${endpoint}`, {

@@ -1,20 +1,43 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import Login from './src/pages/login';
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Login from "./src/pages/login";
+import Home from "./src/pages/home";
+import Booking from "./src/pages/booking";
+import Services from "./src/pages/services";
+import Register from "./src/pages/register";
+
+const Stack = createNativeStackNavigator();
+
 export default function App() {
   return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
-      <Login />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{
+            headerBackVisible: false,
+            gestureEnabled: false, // opcional: impede voltar por swipe no iOS
+          }}
+        />
+        <Stack.Screen
+          name="Register"
+          component={Register}
+          options={{
+            headerBackVisible: false,
+          }}
+        />
+        <Stack.Screen
+          name="Home"
+          options={{
+            headerBackVisible: false,
+          }}
+          component={Home}
+        />
+        <Stack.Screen name="Agendar" component={Booking} />
+        <Stack.Screen name="Services" component={Services} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

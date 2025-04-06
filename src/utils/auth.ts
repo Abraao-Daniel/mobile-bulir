@@ -10,7 +10,7 @@ export interface User {
 }
 
 interface DecodedToken {
-  userId: number
+  id: number
   fullName: string
   email: string
   nif: string
@@ -23,9 +23,9 @@ export const getAuthToken = async (): Promise<string | null> => {
   return await AsyncStorage.getItem("token")
 }
 
-export const setAuthToken = async (token: string): Promise<void> => {
-  await AsyncStorage.setItem("token", token)
-  await setUserInfo()
+export const setAuthToken = async (data: { token: string; user: User }): Promise<void> => {
+  await AsyncStorage.setItem("token", data.token)
+  await AsyncStorage.setItem("user", JSON.stringify(data.user))
 }
 
 export const removeAuthToken = async (): Promise<void> => {
@@ -38,9 +38,10 @@ export const setUserInfo = async (): Promise<void> => {
   if (!token) return
 
   try {
+    // const decoded = jwtDecode<DecodedToken>(token)
     const decoded = jwtDecode<DecodedToken>(token)
     const user: User = {
-      id: decoded.userId,
+      id: decoded.id,
       fullName: decoded.fullName,
       email: decoded.email,
       nif: decoded.nif,
